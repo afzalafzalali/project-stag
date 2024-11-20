@@ -1,0 +1,119 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom, #2e0249, #3c1a5a, #915c83);
+    color: #fff;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Header Styling */
+.header {
+    background: linear-gradient(to right, #ffb515, #c9209c);
+    padding: 1.5rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.nav-links li {
+    margin: 0 1rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+/* Section Styling */
+.section {
+    padding: 2rem;
+    margin: 2rem auto;
+    background: linear-gradient(to bottom right, #3c1a5a, #2e0249);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    width: 80%;
+}
+
+.section h2 {
+    color: #f8c24a;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.section p,
+.section ol,
+.section ul {
+    margin-bottom: 1rem;
+}
+
+.section li {
+    margin: 0.8rem 0;
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+/* Footer Styling */
+.footer {
+    background: #915c83;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.footer p {
+    color: white;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+/* Hover Effects */
+.section:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section {
+        width: 90%;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .nav-links a {
+        font-size: 1rem;
+    }
+}
