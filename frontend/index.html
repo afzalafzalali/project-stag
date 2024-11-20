@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
+    <script src="./scripts/auth/userAuth.js" defer></script>
 </head>
 <body>
 
@@ -53,9 +53,13 @@
                     <li class="navbar-items">
                         <a href="#bitusd" class="navbar-link" data nav-link>BITUSDT</a>
                     </li>
-                    <li class="navbar-items">
-                        <a href="signup.html"  class="navbar-link signin" data nav-link>Sign In</a>
+                    <li id="nav-signin-btn"  class="navbar-items">
+                        <a  href="signup.html"  class="navbar-link signin hidden" data nav-link>Sign Up / Login</a>
                     </li>
+                    <li   class="navbar-items">
+                      <button id="logout-btn" class="hidden" style="font-size: 18px; color: white;">Logout</button>
+                    </li>
+                    <li id="user-info-name" class="hidden" style="color: white; width: 100px;"></li>
                 </ul>
             </nav>
             

@@ -9,15 +9,18 @@ const prismaClient = PrismaSingleton.getInstance().prisma;
 // env var's
 const secret = process.env.JWT_SECRET;
 
+const loginInput = userInput.pick({ email: true, password: true });
 export async function loginUser(req: Request, res: Response) {
   try {
     const reqBody = req.body;
 
-    const parsedInput = await userInput.safeParse(reqBody);
+    const parsedInput = await loginInput.safeParse(reqBody);
+
     if (!parsedInput.success) {
       res.status(401).json({
         success: false,
         message: "Invalid Input",
+        errors: parsedInput.error.format(),
       });
       return;
     }
@@ -30,6 +33,9 @@ export async function loginUser(req: Request, res: Response) {
       res.status(401).json({
         success: false,
         message: "no user found with that email",
+        errors: {
+          email: "No user found with that email",
+        },
       });
       return;
     }
@@ -40,6 +46,9 @@ export async function loginUser(req: Request, res: Response) {
       res.status(401).json({
         success: false,
         message: "incorrect password",
+        errors: {
+          password: "Incorrect password",
+        },
       });
       return;
     }

@@ -16,15 +16,17 @@ const signup_1 = require("./signup");
 const prismaClient = client_1.PrismaSingleton.getInstance().prisma;
 // env var's
 const secret = process.env.JWT_SECRET;
+const loginInput = signup_1.userInput.pick({ email: true, password: true });
 function loginUser(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const reqBody = req.body;
-            const parsedInput = yield signup_1.userInput.safeParse(reqBody);
+            const parsedInput = yield loginInput.safeParse(reqBody);
             if (!parsedInput.success) {
                 res.status(401).json({
                     success: false,
                     message: "Invalid Input",
+                    errors: parsedInput.error.format(),
                 });
                 return;
             }
@@ -34,6 +36,9 @@ function loginUser(req, res) {
                 res.status(401).json({
                     success: false,
                     message: "no user found with that email",
+                    errors: {
+                        email: "No user found with that email",
+                    },
                 });
                 return;
             }
@@ -42,6 +47,9 @@ function loginUser(req, res) {
                 res.status(401).json({
                     success: false,
                     message: "incorrect password",
+                    errors: {
+                        password: "Incorrect password",
+                    },
                 });
                 return;
             }

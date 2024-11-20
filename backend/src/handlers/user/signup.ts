@@ -1,7 +1,6 @@
 import { User } from "@prisma/client";
 import { Response } from "express";
 import { z } from "zod";
-import emailValidator from "email-validator";
 import bcrypt from "bcrypt";
 import { PrismaSingleton } from "../../client";
 import { signAsync } from "../../helpers";
@@ -9,9 +8,16 @@ import { signAsync } from "../../helpers";
 const prismaClient = PrismaSingleton.getInstance().prisma;
 
 export const userInput = z.object({
-  name: z.string().max(30).optional(),
-  email: z.string().max(40),
-  password: z.string().max(30),
+  name: z
+    .string({ required_error: "Name should be provided" })
+    .min(1, { message: "name should be provided" })
+    .max(50, { message: "name too long" }),
+  email: z
+    .string({ required_error: "Email should be provided" })
+    .email({ message: "Invalid email syntax" }),
+  password: z
+    .string({ required_error: "Password should be provided" })
+    .min(1, { message: "Password should be provided" }),
 });
 
 // env var's
@@ -32,21 +38,12 @@ export async function signupUser(
       res.status(401).json({
         success: false,
         message: "Invalid Input",
+        errors: parsedInput.error.format(),
       });
       return;
     }
 
     const { name, email, password } = parsedInput.data;
-
-    const validEmail = await emailValidator.validate(email);
-
-    if (!validEmail) {
-      res.status(401).json({
-        success: false,
-        message: "Invalid email",
-      });
-      return;
-    }
 
     // hashing password
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
@@ -58,6 +55,9 @@ export async function signupUser(
       res.status(401).json({
         success: false,
         message: "user already present",
+        errors: {
+          email: "User present with the email",
+        },
       });
       return;
     }
